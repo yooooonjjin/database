@@ -1,0 +1,69 @@
+select * from all_tab_comments where table_name = 'MEMBER2';
+
+select * from all_col_comments where table_name = 'MEMBER2';
+
+select * from user_constraints where table_name = 'MEMBER2';
+
+select * from all_indexes where table_name = 'MEMBER2';
+	- primary key, unique 
+	
+	
+-----------------------------------------------------------------------
+
+°Ô½ÃÆÇ -> °íÀ¯¹øÈ£ : primary key ( Áßº¹µ¥ÀÌÅÍ ºÒÇã / Ã³¸® ¼Óµµ ºü¸§ )
+seqid -> ¼ýÀÚ
+
+create table board101(
+seqid number primary key,
+title varchar2(100) not null,
+pass varchar2(100) not null,
+name varchar2(50) not null,
+content varchar2(4000),
+regdt timestamp
+);
+-- -------------------------------------------
+insert into board101 values(1', 'aa', '1234', 'È«', '', sysdate);
+insert into board101 values(3', 'bb', '1212', 'È«22', '33', sysdate);
+insert into board101 values(2', 'cc', '1212', 'È«33', '33', sysdate);
+insert into board101 values(3', 'dd', '1212', 'È«44', '33', sysdate);	-- ¿À·ù
+-- ----------------------------------------------------------------------------------------------
+create table board102(
+seqid number,
+title varchar2(100) not null,
+pass varchar2(100) not null,
+name varchar2(50) not null,
+content varchar2(4000),
+regdt timestamp,
+constraint board102_pk1 primary key(seqid)
+);
+-- ----------------------------------------------------------------------------------------------
+create table board104(
+seqid number,
+title varchar2(100) not null,
+pass varchar2(100) not null,
+name varchar2(50) not null,
+content varchar2(4000),
+regdt timestamp,
+constraint board104_pk1 primary key(seqid,name)
+);
+-- -------------------------------------------
+insert into board104 values(1, 'aa', '1234', 'È«1', '', sysdate);	-- ok
+insert into board104 values(2, 'aa', '33334', 'È«7', '', sysdate);	-- ok
+insert into board104 values(2, 'aa', '33334', '±è', '', sysdate);	-- ok
+insert into board104 values(1, 'aa', '66334', 'È«1', 'sss', sysdate);	-- error
+insert into board104 values(3, 'aa', '66334', 'È«1', 'sss', sysdate);	-- ok
+insert into board104 values(3, 'assa', '7777', 'È«1', 'sss', sysdate);	-- error
+insert into board104 values(3, 'aa', '66334', '¸¸µÎ', 'sss', sysdate);	-- ok
+-- ----------------------------------------------------------------------------------------------
+
+123456 °æ±âµµ ±¸¸®½Ã ÀÎÃ¢2µ¿ 101¹øÁö 222È£
+
+1ÇÐ³â/1¹Ý/3¹ø/±èÃ¶¼ö/(¿µ)80/(±¹)50
+
+
+
+
+
+
+
+
