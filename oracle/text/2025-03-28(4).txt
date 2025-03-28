@@ -1,0 +1,88 @@
+-- (풀어보기 1)
+
+create or replace function fn_sum_sal(v_empno in emp.empno%type)
+	return number
+is
+	v_sal number := 0;
+begin
+	select nvl(sal,0) + nvl(comm,0) into v_sal from emp
+	where empno = v_empno;
+
+	return v_sal;
+end;
+/
+-- ------------------------------------
+select fn_emp_sal(7788) from dual;
+select sum(sal) from emp;
+-- --------------------------------------------------------------------------
+
+-- (풀어보기 2)
+
+create or replace function fn_dept_name(v_empno in emp.empno%type)
+	return varchar2
+is
+	v_dname varchar2(50);
+begin
+	select	dname into v_dname
+	from		emp e, dept d
+	where	e.deptno = d.deptno
+	and		e.empno = v_empno;
+
+	return v_dname;
+end;
+/
+
+select fn_dept_name(7788) from dual;
+-- ------------------------------------------
+select
+	(select dname from dept where deptno = emp.deptno)
+from
+	emp
+where
+	empnp = 7788;
+-- ------------------------------------------
+select	dname
+from
+		emp e, dept d
+where
+		e.deptno = d.deptno
+and
+		e.emp = 7788;
+		
+-- --------------------------------------------------------------------------
+
+insert into dept (no,deptno,dname,loc)
+values(fn_dept_no(), fn_dept_deptno(),'개발부','서울');
+
+-- --------------------------------------------------------------------------
+
+-- (풀어보기 5)
+
+create or replace function fn_dept_no(p_tablename in varchar2)
+    return number
+is
+	v_no number;
+begin
+	select nvl(max(no),0)+1 into v_no from dept;
+	return v_no;
+end;
+-- ------------------------------------------
+select nvl(max(no),0) +1 from dept;
+
+-- --------------------------------------------------------------------------
+
+create or replace function fn_dept_depno(p_tablename in varchar2)
+    return number
+is
+	v_no number;
+begin
+	select nvl(max(deptno),0)+10 into v_no from dept;
+	return v_no;
+end;
+
+insert into dept (no,deptno,dname,loc)
+values(fn_dept_no('dept'), fn_dept_deptno('dept'),'개발부','서울');
+
+
+
+

@@ -1,0 +1,19 @@
+create table
+create view
+create sequence
+
+select fn_sum_sal(10) from dual;
+
+create or replace function fn_sum_sal(v_deptno in number)
+	return number
+is
+	v_sum number;
+begin
+	select sum(sal) into v_sum from emp
+	where deptno = v_deptno;
+	
+	return v_sum;
+end;
+/
+-- -------------------------------------------------------------
+
