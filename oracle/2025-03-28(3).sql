@@ -1,0 +1,1 @@
+select '20번 부서의 급여합계 : '||fn_sum_sal(20) as 급여합계 from dual;
